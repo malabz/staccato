@@ -103,7 +103,12 @@ lifo_allocator::page *lifo_allocator::page::allocate_page(
 	size_t size
 ) {
 	auto sz = round_align(alignment, size);
-	auto p = aligned_alloc(alignment, sz);
+	auto p =
+#if !(defined(_WIN32) || defined(_WIN64))
+	          aligned_alloc(alignment, sz);
+#else
+	          _aligned_malloc(alignment, sz);
+#endif
 
 	new(p) page(p, sz - sizeof(page));
 

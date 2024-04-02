@@ -92,7 +92,7 @@ void counter::print(size_t id) const
 	FILE *fp = stdout;
 
 	fprintf(fp, "[STACCATO]");
-	fprintf(fp, "%3lu |", id);
+	fprintf(fp, "%3zu |", id);
 
 	for (size_t i = 0; i < m_nconsters; ++i)
 		fprintf(fp, "%*lu |", m_cell_width, m_counters[i]);
