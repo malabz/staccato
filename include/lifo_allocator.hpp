@@ -129,7 +129,11 @@ lifo_allocator::~lifo_allocator()
 	while (n) {
 		auto p = n;
 		n = n->get_next();
+#if !(defined(_WIN32) || defined(_WIN64))
 		std::free(p);
+#else
+        _aligned_free(p);
+#endif
 	}
 }
 
